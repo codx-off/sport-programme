@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Programme Sport Haute Qualité</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007AFF;
+            --bg: #f5f5f7;
+            --card: #ffffff;
+            --text: #1d1d1f;
+            --text-sec: #86868b;
+            --border: #d2d2d7;
+            --success: #34c759;
+            --danger: #ff3b30;
+        }
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: env(safe-area-inset-bottom, 140px);
+        }
+        header { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: clamp(20px, 8vw, 60px) 20px 20px; 
+        }
+        header h1 { font-size: clamp(24px, 6vw, 34px); font-weight: 800; letter-spacing: -0.5px; margin: 0; }
+        header p { color: var(--text-sec); font-size: clamp(14px, 4vw, 17px); margin-top: 5px; font-weight: 500; }
+
+        .summary {
+            max-width: 800px; margin: 0 auto 30px; padding: 0 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;
+        }
+        .summary-item {
+            background: var(--card); border-radius: 20px; padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+        .label { font-size: 10px; font-weight: 700; color: var(--text-sec); text-transform: uppercase; letter-spacing: 1px; }
+        .val { font-size: clamp(18px, 4vw, 22px); font-weight: 700; color: var(--primary); display: block; margin-top: 4px; }
+
+        main { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+        .day-box { margin-bottom: 40px; }
+        .day-title { 
+            font-size: clamp(18px, 5vw, 22px); 
+            font-weight: 700; 
+            margin-bottom: 15px; 
+            display: flex; 
+            flex-wrap: wrap;
+            align-items: baseline; 
+            gap: 10px; 
+        }
+        .day-desc { font-size: 13px; color: var(--text-sec); font-weight: 400; }
+
+        .exercise {
+            background: var(--card); border-radius: 18px; padding: clamp(12px, 4vw, 20px);
+            margin-bottom: 12px; display: flex; align-items: center;
+            border: 1px solid transparent; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .exercise.completed { opacity: 0.4; background: #e8e8ed; transform: scale(0.98); }
+        
+        .exo-info { flex-grow: 1; min-width: 0; padding-right: 10px; }
+        .exo-name { font-size: clamp(14px, 4vw, 16px); font-weight: 600; display: block; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .exo-specs { font-size: 12px; color: var(--text-sec); font-weight: 500; }
+
+        .tag { 
+            font-size: 9px; font-weight: 800; background: #f2f2f7; 
+            padding: 6px 10px; border-radius: 8px; 
+            color: var(--text); text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        input[type="checkbox"] {
+            width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border);
+            appearance: none; cursor: pointer; margin-left: clamp(10px, 3vw, 20px); transition: 0.2s;
+            position: relative; flex-shrink: 0;
+        }
+        input[type="checkbox"]:checked { background: var(--success); border-color: var(--success); }
+        input[type="checkbox"]:checked::after {
+            content: ''; position: absolute; left: 9px; top: 5px;
+            width: 5px; height: 10px; border: solid white;
+            border-width: 0 3px 3px 0; transform: rotate(45deg);
+        }
+
+        .timer-dock {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(28, 28, 30, 0.95); backdrop-filter: blur(15px); color: #fff; 
+            padding: 12px 20px; border-radius: 50px; font-weight: 600;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); z-index: 1000;
+            display: flex; align-items: center; gap: clamp(10px, 4vw, 20px);
+            width: calc(100% - 40px); max-width: 350px; justify-content: center;
+        }
+
+        .timer-btn, .stop-btn {
+            padding: 10px 18px; border-radius: 25px; cursor: pointer; 
+            font-size: 12px; font-weight: 700; font-family: 'Poppins', sans-serif;
+            border: none; white-space: nowrap;
+        }
+        .timer-btn { background: var(--primary); color: white; }
+        .stop-btn { background: var(--danger); color: white; display: none; }
+
+        @media (max-width: 380px) {
+            .tag { display: none; }
+            .timer-dock { bottom: 10px; padding: 10px; }
+            header { padding-top: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Programme Sport</h1>
+    <p>Corps en V & Jambes Musclées</p>
+</header>
+
+<div class="summary">
+    <div class="summary-item">
+        <span class="label">Repos</span>
+        <span class="val">40s</span>
+    </div>
+    <div class="summary-item">
+        <span class="label">Ma Progression</span>
+        <span id="prog-txt" class="val">0%</span>
+    </div>
+</div>
+
+<main id="routine-list"></main>
+
+<div class="timer-dock">
+    <span id="timer-label" style="font-size: 20px; min-width: 50px; text-align: center; font-weight: 700;">40s</span>
+    <button id="start-btn" class="timer-btn" onclick="startTimer()">REPOS</button>
+    <button id="stop-btn" class="stop-btn" onclick="stopTimer()">STOP</button>
+</div>
+
+<script>
+const audioSignal = new Audio('go.mp3');
+
+const workoutData = [
+    {
+        day: "Lundi", focus: "Épaules (V) & Cuisses",
+        list: [
+            { n: "Élévations latérales strictes", s: "4 x 12-15", d: "Haltères • Largeur" },
+            { n: "Développé haltères", s: "4 x 8-10", d: "Épaules • Masse" },
+            { n: "Goblet Squat", s: "4 x 10-12", d: "Haltères • Lourd" },
+            { n: "Fentes marchées", s: "3 x 12", d: "Haltères • Jambes" }
+        ]
+    },
+    {
+        day: "Mardi", focus: "Pecs & Triceps",
+        list: [
+            { n: "Pompes déclinées", s: "4 x MAX", d: "Corps • Haut des pecs" },
+            { n: "Développé sol haltères", s: "4 x 8-10", d: "Haltères • Masse" },
+            { n: "Dips sur chaise", s: "3 x 12-15", d: "Corps • Triceps" },
+            { n: "Extension triceps un bras", s: "3 x 12", d: "Haltères • Contrôle" }
+        ]
+    },
+    {
+        day: "Jeudi", focus: "Dos (V) & Ischios",
+        list: [
+            { n: "Rowing haltères", s: "4 x 10-12", d: "Haltères • Largeur" },
+            { n: "SDT Roumain", s: "4 x 8-10", d: "Haltères • Ischios" },
+            { n: "Pull-over haltère", s: "3 x 12", d: "Haltères • Expansion" },
+            { n: "Gainage", s: "3 x 45s", d: "Corps • Core" }
+        ]
+    },
+    {
+        day: "Vendredi", focus: "Rappel V & Bras",
+        list: [
+            { n: "Élévations latérales", s: "4 x 15", d: "Haltères • Finition" },
+            { n: "Curl biceps alterné", s: "4 x 10-12", d: "Haltères • Volume" },
+            { n: "Pompes diamant", s: "3 x MAX", d: "Corps • Triceps" },
+            { n: "Relevés de jambes lents", s: "4 x 15", d: "Corps • Abdos" }
+        ]
+    }
+];
+
+function init() {
+    const list = document.getElementById('routine-list');
+    list.innerHTML = workoutData.map((d, dIdx) => `
+        <div class="day-box">
+            <div class="day-title">${d.day} <span class="day-desc">• ${d.focus}</span></div>
+            ${d.list.map((exo, eIdx) => {
+                const id = `x-${dIdx}-${eIdx}`;
+                const checked = localStorage.getItem(id) === 'true';
+                return `
+                    <div class="exercise ${checked ? 'completed' : ''}">
+                        <div class="exo-info">
+                            <span class="exo-name">${exo.n}</span>
+                            <span class="exo-specs">${exo.d}</span>
+                        </div>
+                        <span class="tag">${exo.s}</span>
+                        <input type="checkbox" ${checked ? 'checked' : ''} onchange="save('${id}', this)">
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `).join('');
+    updateProg();
+}
+
+function save(id, el) {
+    localStorage.setItem(id, el.checked);
+    el.closest('.exercise').classList.toggle('completed', el.checked);
+    updateProg();
+}
+
+function updateProg() {
+    const total = document.querySelectorAll('input[type="checkbox"]').length;
+    const done = document.querySelectorAll('input[type="checkbox"]:checked').length;
+    document.getElementById('prog-txt').innerText = Math.round((done / total) * 100) + "%";
+}
+
+let timerInt;
+let timeLeft = 40;
+
+function startTimer() {
+    clearInterval(timerInt);
+    timeLeft = 40;
+    document.getElementById('timer-label').innerText = "40s";
+    document.getElementById('start-btn').style.display = 'none';
+    document.getElementById('stop-btn').style.display = 'block';
+
+    timerInt = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer-label').innerText = timeLeft + "s";
+        if (timeLeft <= 0) {
+            clearInterval(timerInt);
+            document.getElementById('timer-label').innerText = "GO !";
+            audioSignal.play().catch(() => {});
+            setTimeout(stopTimer, 1500);
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInt);
+    document.getElementById('start-btn').style.display = 'block';
+    document.getElementById('stop-btn').style.display = 'none';
+    document.getElementById('timer-label').innerText = "40s";
+}
+
+init();
+</script>
+</body>
+</html>
