@@ -2,252 +2,231 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Programme Sport Haute Qualité</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Programme Sport Maison</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #007AFF;
-            --bg: #f5f5f7;
-            --card: #ffffff;
-            --text: #1d1d1f;
-            --text-sec: #86868b;
-            --border: #d2d2d7;
-            --success: #34c759;
-            --danger: #ff3b30;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        * { box-sizing: border-box; }
-        body { 
-            margin: 0; 
-            font-family: 'Poppins', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            -webkit-font-smoothing: antialiased;
-            padding-bottom: env(safe-area-inset-bottom, 140px);
-        }
-        header { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: clamp(20px, 8vw, 60px) 20px 20px; 
-        }
-        header h1 { font-size: clamp(24px, 6vw, 34px); font-weight: 800; letter-spacing: -0.5px; margin: 0; }
-        header p { color: var(--text-sec); font-size: clamp(14px, 4vw, 17px); margin-top: 5px; font-weight: 500; }
 
-        .summary {
-            max-width: 800px; margin: 0 auto 30px; padding: 0 20px;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 40px;
         }
-        .summary-item {
-            background: var(--card); border-radius: 20px; padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+
+        h1 {
             text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
         }
-        .label { font-size: 10px; font-weight: 700; color: var(--text-sec); text-transform: uppercase; letter-spacing: 1px; }
-        .val { font-size: clamp(18px, 4vw, 22px); font-weight: 700; color: var(--primary); display: block; margin-top: 4px; }
 
-        main { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-
-        .day-box { margin-bottom: 40px; }
-        .day-title { 
-            font-size: clamp(18px, 5vw, 22px); 
-            font-weight: 700; 
-            margin-bottom: 15px; 
-            display: flex; 
-            flex-wrap: wrap;
-            align-items: baseline; 
-            gap: 10px; 
+        .container {
+            max-width: 900px;
+            margin: auto;
         }
-        .day-desc { font-size: 13px; color: var(--text-sec); font-weight: 400; }
+
+        .day {
+            border: 1px solid #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .day h2 {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
 
         .exercise {
-            background: var(--card); border-radius: 18px; padding: clamp(12px, 4vw, 20px);
-            margin-bottom: 12px; display: flex; align-items: center;
-            border: 1px solid transparent; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-        .exercise.completed { opacity: 0.4; background: #e8e8ed; transform: scale(0.98); }
-        
-        .exo-info { flex-grow: 1; min-width: 0; padding-right: 10px; }
-        .exo-name { font-size: clamp(14px, 4vw, 16px); font-weight: 600; display: block; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .exo-specs { font-size: 12px; color: var(--text-sec); font-weight: 500; }
-
-        .tag { 
-            font-size: 9px; font-weight: 800; background: #f2f2f7; 
-            padding: 6px 10px; border-radius: 8px; 
-            color: var(--text); text-transform: uppercase;
-            white-space: nowrap;
+            margin-bottom: 12px;
         }
 
-        input[type="checkbox"] {
-            width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border);
-            appearance: none; cursor: pointer; margin-left: clamp(10px, 3vw, 20px); transition: 0.2s;
-            position: relative; flex-shrink: 0;
-        }
-        input[type="checkbox"]:checked { background: var(--success); border-color: var(--success); }
-        input[type="checkbox"]:checked::after {
-            content: ''; position: absolute; left: 9px; top: 5px;
-            width: 5px; height: 10px; border: solid white;
-            border-width: 0 3px 3px 0; transform: rotate(45deg);
+        .exercise strong {
+            display: block;
+            font-weight: 400;
         }
 
-        .timer-dock {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            background: rgba(28, 28, 30, 0.95); backdrop-filter: blur(15px); color: #fff; 
-            padding: 12px 20px; border-radius: 50px; font-weight: 600;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3); z-index: 1000;
-            display: flex; align-items: center; gap: clamp(10px, 4vw, 20px);
-            width: calc(100% - 40px); max-width: 350px; justify-content: center;
+        .exercise span {
+            font-size: 13px;
+            opacity: 0.8;
         }
 
-        .timer-btn, .stop-btn {
-            padding: 10px 18px; border-radius: 25px; cursor: pointer; 
-            font-size: 12px; font-weight: 700; font-family: 'Poppins', sans-serif;
-            border: none; white-space: nowrap;
-        }
-        .timer-btn { background: var(--primary); color: white; }
-        .stop-btn { background: var(--danger); color: white; display: none; }
-
-        @media (max-width: 380px) {
-            .tag { display: none; }
-            .timer-dock { bottom: 10px; padding: 10px; }
-            header { padding-top: 30px; }
+        .rest {
+            text-align: center;
+            font-size: 18px;
+            padding: 20px;
+            border: 1px dashed #fff;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Programme Sport</h1>
-    <p>Corps en V & Jambes Musclées</p>
-</header>
+<h1>Programme Sport Maison</h1>
 
-<div class="summary">
-    <div class="summary-item">
-        <span class="label">Repos</span>
-        <span class="val">40s</span>
-    </div>
-    <div class="summary-item">
-        <span class="label">Ma Progression</span>
-        <span id="prog-txt" class="val">0%</span>
-    </div>
-</div>
+<div class="container">
 
-<main id="routine-list"></main>
+    <div class="day">
+        <h2>Jour 1 – Pecs / Triceps</h2>
 
-<div class="timer-dock">
-    <span id="timer-label" style="font-size: 20px; min-width: 50px; text-align: center; font-weight: 700;">40s</span>
-    <button id="start-btn" class="timer-btn" onclick="startTimer()">REPOS</button>
-    <button id="stop-btn" class="stop-btn" onclick="stopTimer()">STOP</button>
-</div>
-
-<script>
-const audioSignal = new Audio('go.mp3');
-
-const workoutData = [
-    {
-        day: "Lundi", focus: "Épaules (V) & Cuisses",
-        list: [
-            { n: "Élévations latérales strictes", s: "4 x 12-15", d: "Haltères • Largeur" },
-            { n: "Développé haltères", s: "4 x 8-10", d: "Épaules • Masse" },
-            { n: "Goblet Squat", s: "4 x 10-12", d: "Haltères • Lourd" },
-            { n: "Fentes marchées", s: "3 x 12", d: "Haltères • Jambes" }
-        ]
-    },
-    {
-        day: "Mardi", focus: "Pecs & Triceps",
-        list: [
-            { n: "Pompes déclinées", s: "4 x MAX", d: "Corps • Haut des pecs" },
-            { n: "Développé sol haltères", s: "4 x 8-10", d: "Haltères • Masse" },
-            { n: "Dips sur chaise", s: "3 x 12-15", d: "Corps • Triceps" },
-            { n: "Extension triceps un bras", s: "3 x 12", d: "Haltères • Contrôle" }
-        ]
-    },
-    {
-        day: "Jeudi", focus: "Dos (V) & Ischios",
-        list: [
-            { n: "Rowing haltères", s: "4 x 10-12", d: "Haltères • Largeur" },
-            { n: "SDT Roumain", s: "4 x 8-10", d: "Haltères • Ischios" },
-            { n: "Pull-over haltère", s: "3 x 12", d: "Haltères • Expansion" },
-            { n: "Gainage", s: "3 x 45s", d: "Corps • Core" }
-        ]
-    },
-    {
-        day: "Vendredi", focus: "Rappel V & Bras",
-        list: [
-            { n: "Élévations latérales", s: "4 x 15", d: "Haltères • Finition" },
-            { n: "Curl biceps alterné", s: "4 x 10-12", d: "Haltères • Volume" },
-            { n: "Pompes diamant", s: "3 x MAX", d: "Corps • Triceps" },
-            { n: "Relevés de jambes lents", s: "4 x 15", d: "Corps • Abdos" }
-        ]
-    }
-];
-
-function init() {
-    const list = document.getElementById('routine-list');
-    list.innerHTML = workoutData.map((d, dIdx) => `
-        <div class="day-box">
-            <div class="day-title">${d.day} <span class="day-desc">• ${d.focus}</span></div>
-            ${d.list.map((exo, eIdx) => {
-                const id = `x-${dIdx}-${eIdx}`;
-                const checked = localStorage.getItem(id) === 'true';
-                return `
-                    <div class="exercise ${checked ? 'completed' : ''}">
-                        <div class="exo-info">
-                            <span class="exo-name">${exo.n}</span>
-                            <span class="exo-specs">${exo.d}</span>
-                        </div>
-                        <span class="tag">${exo.s}</span>
-                        <input type="checkbox" ${checked ? 'checked' : ''} onchange="save('${id}', this)">
-                    </div>
-                `;
-            }).join('')}
+        <div class="exercise">
+            <strong>Pompes – 4× max</strong>
+            <span>Mains largeur épaules, corps droit, descends poitrine proche du sol puis pousse</span>
         </div>
-    `).join('');
-    updateProg();
-}
 
-function save(id, el) {
-    localStorage.setItem(id, el.checked);
-    el.closest('.exercise').classList.toggle('completed', el.checked);
-    updateProg();
-}
+        <div class="exercise">
+            <strong>Pompes inclinées – 4×10-15</strong>
+            <span>Pieds sur une chaise, même mouvement, cible le haut des pecs</span>
+        </div>
 
-function updateProg() {
-    const total = document.querySelectorAll('input[type="checkbox"]').length;
-    const done = document.querySelectorAll('input[type="checkbox"]:checked').length;
-    document.getElementById('prog-txt').innerText = Math.round((done / total) * 100) + "%";
-}
+        <div class="exercise">
+            <strong>Pompes serrées – 3×8-12</strong>
+            <span>Mains proches, coudes collés au corps, travaille les triceps</span>
+        </div>
 
-let timerInt;
-let timeLeft = 40;
+        <div class="exercise">
+            <strong>Dips – 3× max</strong>
+            <span>Entre deux chaises, descends en pliant les bras puis remonte</span>
+        </div>
 
-function startTimer() {
-    clearInterval(timerInt);
-    timeLeft = 40;
-    document.getElementById('timer-label').innerText = "40s";
-    document.getElementById('start-btn').style.display = 'none';
-    document.getElementById('stop-btn').style.display = 'block';
+        <div class="exercise">
+            <strong>Gainage – 3×45 sec</strong>
+            <span>Avant-bras au sol, corps droit, contracte abdos et fessiers</span>
+        </div>
+    </div>
 
-    timerInt = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer-label').innerText = timeLeft + "s";
-        if (timeLeft <= 0) {
-            clearInterval(timerInt);
-            document.getElementById('timer-label').innerText = "GO !";
-            audioSignal.play().catch(() => {});
-            setTimeout(stopTimer, 1500);
-        }
-    }, 1000);
-}
+    <div class="day">
+        <h2>Jour 2 – Dos / Biceps</h2>
 
-function stopTimer() {
-    clearInterval(timerInt);
-    document.getElementById('start-btn').style.display = 'block';
-    document.getElementById('stop-btn').style.display = 'none';
-    document.getElementById('timer-label').innerText = "40s";
-}
+        <div class="exercise">
+            <strong>Tractions / tirage – 4× max</strong>
+            <span>Tire ton corps vers le haut ou vers la table, contrôle la descente</span>
+        </div>
 
-init();
-</script>
+        <div class="exercise">
+            <strong>Rowing – 4×12</strong>
+            <span>Penché, tire le poids vers ton ventre, dos droit</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Curl biceps – 3×10-12</strong>
+            <span>Plie les bras avec contrôle, redescends lentement</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Curl marteau – 3×10</strong>
+            <span>Paumes face à face, même mouvement</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Gainage – 3×45 sec</strong>
+            <span>Corps droit, abdos contractés, ne creuse pas le dos</span>
+        </div>
+    </div>
+
+    <div class="day">
+        <h2>Jour 3 – Abdos + Cardio</h2>
+
+        <div class="exercise">
+            <strong>Crunch – 3×20</strong>
+            <span>Allongé, relève légèrement le haut du corps, abdos contractés</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Relevés de jambes – 3×15</strong>
+            <span>Jambes tendues, monte sans élan, cible le bas des abdos</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Gainage – 3×1 min</strong>
+            <span>Avant-bras au sol, corps aligné, contracte abdos et fessiers</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Mountain climbers – 3×40 sec</strong>
+            <span>Position pompe, ramène les genoux rapidement vers la poitrine</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Cardio – 10-15 min</strong>
+            <span>Course ou marche rapide</span>
+        </div>
+    </div>
+
+    <div class="day">
+        <h2>Jour 4 – Épaules / Pecs</h2>
+
+        <div class="exercise">
+            <strong>Pompes pike – 4×8-10</strong>
+            <span>Fesses en l’air, descends la tête vers le sol puis pousse</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Pompes classiques – 3× max</strong>
+            <span>Corps droit, descends contrôlé puis remonte</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Pompes larges – 3×10</strong>
+            <span>Mains écartées, accent sur les pecs</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Élévations latérales – 3×12</strong>
+            <span>Lève les bras sur les côtés avec contrôle</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Pompes explosives – 2×6-8</strong>
+            <span>Pousse fort pour décoller légèrement du sol</span>
+        </div>
+    </div>
+
+    <div class="day">
+        <h2>Jour 5 – Dos / Bras</h2>
+
+        <div class="exercise">
+            <strong>Tractions – 4× max</strong>
+            <span>Tire ton corps vers le haut, contrôle la descente</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Rowing – 3×12</strong>
+            <span>Penché, tire vers le ventre, dos droit</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Curl – 3×12</strong>
+            <span>Plie les bras lentement, contrôle la descente</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Dips – 3× max</strong>
+            <span>Descends puis remonte en contrôlant</span>
+        </div>
+
+        <div class="exercise">
+            <strong>Gainage latéral – 3×40 sec / côté</strong>
+            <span>Sur le côté, corps droit, avant-bras au sol</span>
+        </div>
+    </div>
+
+    <div class="day">
+        <h2>Jour 6 – Full + Abdos</h2>
+
+        <div class="exercise">
+            <strong>Circuit x3 :</strong>
+            <span>Pompes max / Crunch x20 / Relevés jambes x15 / Burpees x8 / Gainage 45 sec</span>
+        </div>
+    </div>
+
+    <div class="rest">
+        Jour 7 – Repos
+    </div>
+
+</div>
+
 </body>
 </html>
